@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% load static i18n %}
+
+
+{% block content %}
+    <div class="row">
+        <div class="col-sm-10">
+                <div class="card" style="margin: 0 auto; text-align: center;">
+                    <h1>How much the COIN</h1>
+                </div>
+        </div>
+        <div class="col-sm-2">
+            <a href="{% url 'add_coin_pair' %}" class="button">Add new coin pair</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12 col-md-10" style="margin: auto; padding-top: 100px;">
+            {% if coin_pairs %}
+                <table class="hoverable" style="max-height: 100%;">
+                    <thead>
+                        <tr>
+                            <th>Coin Pair</th>
+                            <th>Price</th>
+                            <th>Volume</th>
+                            <th>Change</th>
+                            <th>Last Update</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in coin_pairs %}
+                        <tr>
+                            <td data-label="Coin Pair">
+                                {{ item.base | upper}}/{{ item.target | upper}}
+                            </td>
+                            {% with item.get_last_update as item_data %}
+                                <td data-label="Price">{{ item_data.price }}</td>
+                                <td data-label="Volume">{{ item_data.volume }}</td>
+                                <td data-label="Change">{{ item_data.change }}</td>
+                                <td data-label="Last update">{{ item_data.created }}</td>
+                            {% endwith %}
+                        </tr>
+                        {% endfor %}
+                  </tbody>
+                </table>
+            {% else %}
+                <div class="card">
+                    Sorry, can't get coin pairs data
+                </div>
+            {% endif %}
+        </div>
+
+    </div>
+
+{% endblock %}

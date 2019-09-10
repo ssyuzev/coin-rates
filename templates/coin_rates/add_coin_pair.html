@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% load static i18n %}
+
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-sm-10">
+                <div class="card" style="margin: 0 auto; text-align: center;">
+                    <h1>How much the COIN</h1>
+                </div>
+        </div>
+        <div class="col-sm-2">
+            <a href="{% url 'home' %}" class="button">Return to coins list</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12 col-md-6" style="margin: auto; padding-top: 100px;">
+            <form method="post">
+                {% csrf_token %}
+                <fieldset>
+
+                    <legend>Add new coin pair</legend>
+
+                    {% if form.non_field_errors %}
+                      <ul>
+                        {% for error in form.non_field_errors %}
+                          <li>{{ error }}</li>
+                        {% endfor %}
+                      </ul>
+                    {% endif %}
+
+                    {% for field in form.visible_fields %}
+                        <div class="input-group vertical">
+                            <label for="{{ field.name }}">{{ field.name|capfirst }}:</label>
+                            {{ field }}
+                        </div>
+                    {% endfor %}
+
+                    {% for h_field in form.hidden_fields %}
+                        {{ h_field }}
+                    {% endfor %}
+
+                    <div class="col-sm col-sm-offset-10">
+                      <button type="submit">
+                        SAVE
+                      </button>
+                    </div>
+
+
+                  </div>
+
+                      {% for field in form.visible_fields %}
+                        {% if form.is_bound %}
+                          {% if field.errors %}
+                            {% for error in field.errors %}
+                              <div class="col">
+                                {{ error }}
+                              </div>
+                            {% endfor %}
+                          {% endif %}
+                        {% endif %}
+                      {% endfor %}
+                <fieldset>
+
+            </form>
+        </div>
+
+    </div>
+
+{% endblock %}

@@ -1,0 +1,45 @@
+version: "3"
+
+services:
+
+  db:
+    image: "postgres:11-alpine"
+    restart: always
+    env_file:
+      - ./.env
+    ports:
+      - "127.0.0.1:5432:5432"
+    volumes:
+      - ./data/postgres/data:/var/lib/postgresql/data
+
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    links:
+        - db:postgresql.local
+    env_file:
+      - ./.env
+    environment:
+      - DJANGO_SETTINGS_MODULE=how_much_the_coin.settings
+    command: gunicorn --bind 0.0.0.0:8000 --chdir /app/how_much_the_coin how_much_the_coin.wsgi --log-level info --error-logfile /app/logs/g_errors.log, --log-file /app/logs/g.log --access-logfile=/app/logs/gunicorn_access.log
+    volumes:
+        - .:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+
+  observer:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - DJANGO_SETTINGS_MODULE=how_much_the_coin.settings.local
+    command: sh ./scripts/run_observer.sh
+    volumes:
+      - .:/app
+    depends_on:
+      - db
+      - web
+

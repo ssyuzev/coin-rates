@@ -1,0 +1,56 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+._.DS_Store
+.DS_Store
+
+
+# C extensions
+*.so
+
+
+# Distribution / packaging
+.Python
+.venv
+
+
+# Unit test / coverage reports
+.pytest_cache/
+htmlcov/
+.tox/
+.coverage
+.cache
+nosetests.xml
+coverage.xml
+
+
+# Sphinx documentation
+docs/_build/
+
+
+# VSCode
+.vscode
+#Pycharm
+.idea
+#Sublime text 3
+*.sublime-workspace
+
+
+#Django
+*.swp
+*.log
+.env
+*~
+.~*
+media/
+static/
+htmlcov/
+data/
+db.sqlite3
+local_settings.py
+setup.py
+
+
+# Celery
+celerybeat-schedule
+celerybeat.pid
