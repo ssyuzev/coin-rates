@@ -12,13 +12,14 @@ and update rates each 10 seconds.
 
 ## Development
 - Clone project
+- Create .env file (or copy from .env.example)
 - Run `docker-compose up` or use fabric command `fab start`
 - Run `docker-compose exec web python3 manage.py runserver 0.0.0.0:8000` or `fab runserver`
 - To shutdown docker run `docker-compose down` or `fab stop`
 
 
 ## Production
-- Follow the first step outlined above
+- Follow the first 2 steps outlined above
 - Run `docker-compose -f docker-compose.prod.yml up --build -d`
 - Run `docker-compose -f docker-compose.prod.yml exec web python3 manage.py migrate`
 - Run `docker-compose -f docker-compose.prod.yml exec web python3 manage.py collectstatic`
@@ -26,4 +27,5 @@ and update rates each 10 seconds.
 
 
 ## TO-DO:
-- Move to Bootstrap4
+- Move to Bootstrap 4
+- Add tests
