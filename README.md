@@ -26,6 +26,5 @@ and update rates each 10 seconds.
 - Visit website
 
 
-## TO-DO:
-- Move to Bootstrap 4
-- Add tests
+## Home page:
+![Dashboard](https://github.com/ssyuzev/coin-rates/blob/master/docs/img/dashboard.png)
