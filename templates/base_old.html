@@ -1,0 +1,23 @@
+{% load static i18n %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}How much the coin{% endblock %}</title>
+    <link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700|Poppins:400,400i,500,700,700i&amp;subset=latin-ext" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.rawgit.com/Chalarangelo/mini.css/v3.0.1/dist/mini-default.min.css">
+<link rel="stylesheet" href="{% static 'css/custom.css' %}">
+</head>
+<body>
+    {% for message in messages %}
+        <span class="toast">{{ message }}</span>
+    {% endfor %}
+    <div class="container">
+        {% block content %}
+        {% endblock %}
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</body>
+</html>

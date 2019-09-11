@@ -3,25 +3,27 @@
 {% load static i18n %}
 
 
+{% block header %}
+
+    <div class="w-100 d-block">
+        <h1 class="h3 mb-0 text-gray-800 d-inline">Add new coin pair</h1>
+    </div>
+
+{% endblock %}
+
+
 {% block content %}
 
+    
     <div class="row">
-        <div class="col-sm-10">
-                <div class="card" style="margin: 0 auto; text-align: center;">
-                    <h1>How much the COIN</h1>
-                </div>
-        </div>
-        <div class="col-sm-2">
-            <a href="{% url 'home' %}" class="button">Return to coins list</a>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-12 col-md-6" style="margin: auto; padding-top: 100px;">
+        <div class="col-sm-12 col-md-6 card mt-5 px-5 py-5" style="margin: auto;">
             <form method="post">
                 {% csrf_token %}
+                <div class="mb-2">
+                  <legend>Add new coin pair</legend>
+                </div>
                 <fieldset>
 
-                    <legend>Add new coin pair</legend>
 
                     {% if form.non_field_errors %}
                       <ul>
@@ -32,36 +34,33 @@
                     {% endif %}
 
                     {% for field in form.visible_fields %}
-                        <div class="input-group vertical">
-                            <label for="{{ field.name }}">{{ field.name|capfirst }}:</label>
+                      {% if form.is_bound %}
+                        {% if field.errors %}
+                          {% for error in field.errors %}
+                            <div class="col">
+                              {{ error }}
+                            </div>
+                          {% endfor %}
+                        {% endif %}
+                      {% endif %}
+                    {% endfor %}
+
+                    <div class="form-group row">
+                      {% for field in form.visible_fields %}
+                        <div class="col-sm-6">
                             {{ field }}
                         </div>
-                    {% endfor %}
+                      {% endfor %}
+                    </div>
 
                     {% for h_field in form.hidden_fields %}
                         {{ h_field }}
                     {% endfor %}
 
-                    <div class="col-sm col-sm-offset-10">
-                      <button type="submit">
-                        SAVE
-                      </button>
-                    </div>
+                    <button type="submit" class="btn btn-primary btn-user btn-block">
+                      SAVE COIN PAIR
+                    </button>
 
-
-                  </div>
-
-                      {% for field in form.visible_fields %}
-                        {% if form.is_bound %}
-                          {% if field.errors %}
-                            {% for error in field.errors %}
-                              <div class="col">
-                                {{ error }}
-                              </div>
-                            {% endfor %}
-                          {% endif %}
-                        {% endif %}
-                      {% endfor %}
                 <fieldset>
 
             </form>

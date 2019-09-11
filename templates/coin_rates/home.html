@@ -3,52 +3,54 @@
 {% load static i18n %}
 
 
-{% block content %}
-    <div class="row">
-        <div class="col-sm-10">
-                <div class="card" style="margin: 0 auto; text-align: center;">
-                    <h1>How much the COIN</h1>
-                </div>
-        </div>
-        <div class="col-sm-2">
-            <a href="{% url 'add_coin_pair' %}" class="button">Add new coin pair</a>
-        </div>
+{% block header %}
+
+    <div class="w-100 d-block">
+        <h1 class="h3 mb-0 text-gray-800 d-inline">How much the coin for {{ last_update }} ?</h1>
+
+        <a href="{% url 'add_coin_pair' %}" class="btn btn-sm btn-primary shadow-sm d-inline float-right mb-2">
+            Add coin pair
+        </a>
     </div>
+
+{% endblock %}
+
+
+{% block content %}
+
     <div class="row">
-        <div class="col-sm-12 col-md-10" style="margin: auto; padding-top: 100px;">
-            {% if coin_pairs %}
-                <table class="hoverable" style="max-height: 100%;">
-                    <thead>
-                        <tr>
-                            <th>Coin Pair</th>
-                            <th>Price</th>
-                            <th>Volume</th>
-                            <th>Change</th>
-                            <th>Last Update</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for item in coin_pairs %}
-                        <tr>
-                            <td data-label="Coin Pair">
-                                {{ item.base | upper}}/{{ item.target | upper}}
-                            </td>
-                            {% with item.get_last_update as item_data %}
-                                <td data-label="Price">{{ item_data.price }}</td>
-                                <td data-label="Volume">{{ item_data.volume }}</td>
-                                <td data-label="Change">{{ item_data.change }}</td>
-                                <td data-label="Last update">{{ item_data.created }}</td>
-                            {% endwith %}
-                        </tr>
-                        {% endfor %}
-                  </tbody>
-                </table>
-            {% else %}
-                <div class="card">
-                    Sorry, can't get coin pairs data
+
+        {% if coin_pairs %}
+            {% for item in coin_pairs %}
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card border-left-primary shadow h-100 py-2">
+                        <div class="card-body">
+                          <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-md font-weight-bold text-primary text-uppercase mb-1">
+                                    {{ item.base }}/{{ item.target }}
+                                </div>
+                                {% with item.get_last_update as item_data %}
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                        {{ item_data.price }}
+                                    </div>
+                                    <div class="font-small">
+                                        change: {{ item_data.change }} <br>
+                                    </div>
+                              {% endwith %}
+                            </div>
+                          </div>
+                        </div>
+                    </div>
                 </div>
-            {% endif %}
-        </div>
+                        
+            {% endfor %}
+
+        {% else %}
+            <div class="card">
+                Sorry, can't get coin pairs data
+            </div>
+        {% endif %}
 
     </div>
 

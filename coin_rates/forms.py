@@ -14,6 +14,16 @@ class AddCoinPairForm(forms.ModelForm):
         model = CoinPair
         fields = ('base', 'target', )
 
+    def __init__(self, *args, **kwargs):
+        """Init form & add fields order."""
+        super(AddCoinPairForm, self).__init__(*args, **kwargs)
+        self.fields['base'].widget.attrs['placeholder'] = "Base"
+        self.fields['base'].widget.attrs.update(
+            {'class': 'form-control form-control-user'})
+        self.fields['target'].widget.attrs['placeholder'] = "Target"
+        self.fields['target'].widget.attrs.update(
+            {'class': 'form-control form-control-user'})
+
     def clean(self):
         """Override default clean method."""
         cleaned_data = super(AddCoinPairForm, self).clean()
