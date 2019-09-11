@@ -27,8 +27,13 @@ class HomePageView(TemplateView):
         """View details for HTTP GET method."""
         context = self.get_context_data(**kwargs)
         coun_pairs = CoinPair.objects.all().order_by('created')
+        context['view_type'] = 'badges'
         context['coin_pairs'] = coun_pairs
         context['last_update'] = coun_pairs.first().get_last_update().created
+        view_type = request.GET.get('view', None)
+        if view_type == "table":
+            context['view_type'] = 'table'
+
         return self.render_to_response(context)
 
 

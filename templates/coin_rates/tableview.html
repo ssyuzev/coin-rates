@@ -1,0 +1,32 @@
+<div class="col-md-12 mb-4">
+    <div class="card">
+
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Coin Pair</th>
+                    <th>Price</th>
+                    <th>Volume</th>
+                    <th>Change</th>
+                    <th>Last Update</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in coin_pairs %}
+                <tr>
+                    <td data-label="Coin Pair">
+                        {{ item.base | upper}}/{{ item.target | upper}}
+                    </td>
+                    {% with item.get_last_update as item_data %}
+                        <td data-label="Price">{{ item_data.price }}</td>
+                        <td data-label="Volume">{{ item_data.volume }}</td>
+                        <td data-label="Change">{{ item_data.change }}</td>
+                        <td data-label="Last update">{{ item_data.created }}</td>
+                    {% endwith %}
+                </tr>
+                {% endfor %}
+          </tbody>
+        </table>
+            
+    </div>
+</div>

@@ -18,9 +18,9 @@
 
   <link href="{% static 'css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
   
-  <link rel="stylesheet" href="{% static 'css/toastr.css' %}">
   <!-- Custom styles for this template-->
   <link href="{% static 'css/sb-admin-2.min.css' %}" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/toastr.css' %}">
 
 </head>
 
@@ -62,7 +62,7 @@
 
       <!-- Nav Item - Tables -->
       <li class="nav-item">
-        <a class="nav-link" href="#">
+        <a class="nav-link" href="{% url 'home' %}?view=table">
           <i class="fas fa-fw fa-table"></i>
           <span>Tables</span></a>
       </li>
@@ -96,7 +96,7 @@
         </nav><!-- End of Topbar -->
 
         <!-- Begin Page Content -->
-        <div class="container-fluid">
+        <div class="container-fluid" style="min-height: 82vh;">
 
           {% block content %}
 
