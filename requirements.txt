@@ -19,3 +19,16 @@ pytils
 dateutils
 pygraphviz
 django-extensions
+pytest
+pytest-mock
+pytest-django
+pytest-cov
+pytest-xdist
+pytest-isort
+pytest-flake8
+flake8
+flake8-mypy
+mixer
+unidecode
+ipython
+django-debug-toolbar

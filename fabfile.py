@@ -6,6 +6,8 @@ Install fabric3 from console:
 >>> python3 -m pip install -U fabric3
 """
 
+import multiprocessing
+
 from fabric.api import task, local
 
 
@@ -78,3 +80,20 @@ def manage(command):
     """Run django manage command."""
     local("{} exec web python3 manage.py {} {}".format(
         dc, command, settings))
+
+
+@task
+def pytest(app_name='', multicore=False, isort=False):
+    """Run pytest."""
+    if multicore:
+        cpu_cores = multiprocessing.cpu_count()
+        cpu_cores = "-n " + str(cpu_cores)
+    else:
+        cpu_cores = ''
+    use_isort = '--isort' if isort else ''
+    pytest_cmd = (
+        'docker-compose exec web bash -c "pytest {0} ' +
+        '-x -s -v {1} {2} --flake8 --create-db --reuse-db ' +
+        '--ds=how_much_the_coin.test_settings"'
+    )
+    local(pytest_cmd.format(app_name, cpu_cores, use_isort))
