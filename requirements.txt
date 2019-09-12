@@ -24,10 +24,9 @@ pytest-mock
 pytest-django
 pytest-cov
 pytest-xdist
-pytest-isort
-pytest-flake8
 flake8
 flake8-mypy
+flake8-import-order
 mixer
 unidecode
 ipython

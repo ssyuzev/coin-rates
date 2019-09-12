@@ -4,11 +4,11 @@ import logging
 
 from django.contrib import messages
 from django.shortcuts import redirect
-from django.views.generic.base import TemplateView
 from django.utils.translation import ugettext_lazy as _
+from django.views.generic.base import TemplateView
 
-from .models import CoinPair
 from .forms import AddCoinPairForm
+from .models import CoinPair
 
 logger = logging.getLogger('coin_rates.views')
 
@@ -26,14 +26,13 @@ class HomePageView(TemplateView):
     def get(self, request, *args, **kwargs):
         """View details for HTTP GET method."""
         context = self.get_context_data(**kwargs)
-        coun_pairs = CoinPair.objects.all().order_by('created')
-        context['view_type'] = 'badges'
-        context['coin_pairs'] = coun_pairs
-        context['last_update'] = coun_pairs.first().get_last_update().created
-        view_type = request.GET.get('view', None)
-        if view_type == "table":
-            context['view_type'] = 'table'
-
+        coin_pairs = CoinPair.objects.all().order_by('created')
+        view_type = request.GET.get('view', 'badges')
+        context['view_type'] = 'table' if view_type == "table" else "badges"
+        if coin_pairs:
+            last_update = coin_pairs.first().get_last_update().created
+            context['coin_pairs'] = coin_pairs
+            context['last_update'] = last_update
         return self.render_to_response(context)
 
 

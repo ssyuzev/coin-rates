@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from coin_rates.views import HomePageView, AddCoinPairView
+from coin_rates.views import AddCoinPairView, HomePageView
 
 
 urlpatterns = [

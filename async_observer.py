@@ -1,11 +1,11 @@
 """Coin observer with asyncio event loop."""
 
-import aiohttp
 import asyncio
-import django
 import datetime
 import os
 
+import aiohttp
+import django
 from django.conf import settings
 
 

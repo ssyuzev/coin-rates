@@ -8,7 +8,7 @@ Install fabric3 from console:
 
 import multiprocessing
 
-from fabric.api import task, local
+from fabric.api import local, task
 
 
 dc = 'docker-compose'
@@ -83,17 +83,23 @@ def manage(command):
 
 
 @task
-def pytest(app_name='', multicore=False, isort=False):
+def pytest(app_name='', multicore=False):
     """Run pytest."""
     if multicore:
         cpu_cores = multiprocessing.cpu_count()
         cpu_cores = "-n " + str(cpu_cores)
     else:
         cpu_cores = ''
-    use_isort = '--isort' if isort else ''
     pytest_cmd = (
         'docker-compose exec web bash -c "pytest {0} ' +
-        '-x -s -v {1} {2} --flake8 --create-db --reuse-db ' +
+        '-x -s -v {1} --create-db --reuse-db ' +
         '--ds=how_much_the_coin.test_settings"'
     )
-    local(pytest_cmd.format(app_name, cpu_cores, use_isort))
+    local(pytest_cmd.format(app_name, cpu_cores))
+
+
+@task
+def flake8(app_name=''):
+    """Run flake8."""
+    local("docker-compose exec web python3 -m flake8 {} --count".format(
+        app_name))
