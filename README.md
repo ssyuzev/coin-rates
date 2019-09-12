@@ -23,7 +23,7 @@ and update rates each 10 seconds.
 - Run `docker-compose -f docker-compose.prod.yml up --build -d`
 - Run `docker-compose -f docker-compose.prod.yml exec web python3 manage.py migrate`
 - Run `docker-compose -f docker-compose.prod.yml exec web python3 manage.py collectstatic`
-- Visit website
+- Update nginx config & visit the website
 
 
 ## Home page:
