@@ -35,8 +35,8 @@ if DEBUG:
     INTERNAL_IPS = ('127.0.0.1', 'localhost',)
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 else:
-    ALLOWED_HOSTS.extend(os.getenv('DEFAULT_DOMAIN', 'coin-rates.ssyuzev.dev')
-    ALLOWED_HOSTS.extend(os.getenv('DEFAULT_IP', '116.203.69.222')
+    ALLOWED_HOSTS.extend(os.getenv('DEFAULT_DOMAIN', 'coin-rates.ssyuzev.dev'))
+    ALLOWED_HOSTS.extend(os.getenv('DEFAULT_IP', '116.203.69.222'))
 
 
 # Application definition
