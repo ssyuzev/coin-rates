@@ -1,0 +1,41 @@
+server {
+    listen 80;
+    listen [::]:80;
+
+    server_name coin-rates.ssyuzev.dev;
+
+    charset     utf-8;
+
+    access_log /var/log/nginx/coin_rates_access.log;
+    error_log /var/log/nginx/coin_rates_error.log;
+
+    sendfile        on;
+    client_max_body_size 20M;
+    keepalive_timeout  30;
+
+    location /media  {
+        autoindex on;
+        alias /var/www/coin_rates/media;
+    }
+
+    location /static {
+        autoindex on;
+        alias /var/www/coin_rates/static;
+    }
+
+    location /robots.txt {
+        alias /var/www/coin_rates/static/robots.txt;
+    }
+
+    location /favicon.ico {
+        alias /var/www/coin_rates/static/favicon.ico;
+    }
+
+    location / {
+        include proxy_params;
+        proxy_pass http://127.0.0.1:8000;
+    }
+
+    add_header X-Frame-Options "";
+
+}
