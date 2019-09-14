@@ -35,8 +35,7 @@ if DEBUG:
     INTERNAL_IPS = ('127.0.0.1', 'localhost',)
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 else:
-    ALLOWED_HOSTS.extend(os.getenv('DEFAULT_DOMAIN', 'coin-rates.ssyuzev.dev'))
-    ALLOWED_HOSTS.extend(os.getenv('DEFAULT_IP', '116.203.69.222'))
+    ALLOWED_HOSTS = ('coin-rates.ssyuzev.dev', '116.203.69.222')
 
 
 # Application definition
@@ -217,17 +216,17 @@ LOGGING = {
             'propagate': False,
         },
         'django.request': {
-            'handlers': ['mail_admins'],
+            'handlers': ['mail_admins', 'console'],
             'level': 'ERROR',
             'propagate': True,
         },
         'coin_rates': {
-            'handlers': ['coin_rates_logfile'],
+            'handlers': ['coin_rates_logfile', 'console'],
             'level': 'DEBUG',
             'propagate': False,
         },
         'observer': {
-            'handlers': ['observer_logfile'],
+            'handlers': ['observer_logfile', 'console'],
             'level': 'DEBUG',
             'propagate': False,
         },

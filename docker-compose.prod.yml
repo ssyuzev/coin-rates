@@ -22,7 +22,7 @@ services:
       - ./.env
     environment:
       - DJANGO_SETTINGS_MODULE=how_much_the_coin.settings
-    command: gunicorn --bind 0.0.0.0:8000 --chdir /app/how_much_the_coin how_much_the_coin.wsgi --log-level info --error-logfile /app/logs/g_errors.log, --log-file /app/logs/g.log --access-logfile=/app/logs/gunicorn_access.log
+    command: gunicorn --bind 0.0.0.0:8000 how_much_the_coin.wsgi --log-level info --error-logfile /app/logs/g_errors.log, --log-file /app/logs/g.log --access-logfile=/app/logs/gunicorn_access.log
     volumes:
         - .:/app
     ports:
