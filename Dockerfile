@@ -34,6 +34,7 @@ RUN apk update \
 ADD . /app/
 RUN python3 -m pip install -U pip && python3 -m pip install -r requirements.txt
 
+RUN chmod 777 logs/
 
 # Run bash script for waiting for db
 COPY scripts/wait-for-postgres.sh /usr/local/bin/

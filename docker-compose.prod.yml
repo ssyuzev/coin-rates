@@ -35,7 +35,7 @@ services:
       context: .
       dockerfile: Dockerfile
     environment:
-      - DJANGO_SETTINGS_MODULE=how_much_the_coin.settings.local
+      - DJANGO_SETTINGS_MODULE=how_much_the_coin.settings
     command: sh ./scripts/run_observer.sh
     volumes:
       - .:/app
